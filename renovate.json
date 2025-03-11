@@ -1,0 +1,67 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+      "config:base",
+      ":enablePreCommit",
+      ":automergeMinor"
+    ],
+    "schedule": ["every weekend"],
+    "poetry": {
+      "versioning": "pep440"
+    },
+    "packageRules": [
+      {
+        "matchManagers": ["poetry"],
+        "rangeStrategy": "bump"
+      },
+      {
+        "groupName": "all non-major dependencies",
+        "groupSlug": "all-minor-patch",
+        "matchUpdateTypes": ["minor", "patch"],
+        "matchManagers": ["poetry"]
+      },
+      {
+        "matchManagers": ["poetry"],
+        "matchDepTypes": ["dev-dependencies"],
+        "automerge": true
+      },
+      {
+        "matchPackagePatterns": ["^pytest"],
+        "groupName": "pytest packages"
+      },
+      {
+        "matchPackagePatterns": ["^flake8"],
+        "groupName": "linting packages"
+      }
+    ],
+    "ignoreDeps": [
+      "python"
+    ],
+    "labels": [
+      "dependencies",
+      "poetry"
+    ],
+    "assignees": [
+      "your-github-username"
+    ],
+    "reviewers": [
+      "team-lead-username"
+    ],
+    "vulnerabilityAlerts": {
+      "labels": ["security"],
+      "assignees": ["security-team-member"]
+    },
+    "lockFileMaintenance": {
+      "enabled": true,
+      "automerge": true,
+      "schedule": [
+        "before 5am on monday"
+      ]
+    },
+    "prHourlyLimit": 2,
+    "prConcurrentLimit": 10,
+    "separateMajorMinor": true,
+    "separateMultipleMajor": true,
+    "separatePatchReleases": true
+  }
+  
